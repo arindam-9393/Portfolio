@@ -1,158 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfolio — Arindam</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arindam | Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
 
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
-    html{scroll-behavior:smooth;}
-    body{
-      background:linear-gradient(120deg,#0f172a 0%, #0b1220 40%, #071029 100%);
-      color:#e6eef8;
-    }
+        body{
+            background:#0b1220;
+            color:#e6eef8;
+            overflow-x: hidden;
+        }
 
-    /* Background blobs */
-    .bg-blob{position:fixed;filter: blur(60px) saturate(120%);opacity:.6;mix-blend-mode:screen;pointer-events:none;animation: float 18s ease-in-out infinite;border-radius:50%;}
-    .blob1{width:420px;height:420px;left:-10%;top:-8%;background:radial-gradient(circle at 20% 20%, #7c3aed, #3b82f6);}
-    .blob2{width:520px;height:520px;right:-12%;bottom:-6%;background:radial-gradient(circle at 80% 80%, #06b6d4, #0ea5a4); animation-duration:22s; animation-direction:reverse;}
-    @keyframes float{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.04)}100%{transform:translateY(0) scale(1)}}
+        /* ================= LOADER ================= */
+        #loader{
+            position:fixed;
+            inset:0;
+            background:#020617;
+            z-index:9999;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-direction:column;
+        }
 
-    /* Sections */
-    section{padding:80px 10%;max-width:1100px;margin:auto;position:relative;z-index:2;}
-    h2{font-size:32px;margin-bottom:20px;color:#fff}
-    p{color:rgba(230,238,248,0.75);line-height:1.6}
+        .rocket{
+            font-size:80px;
+            animation:launch 2.5s ease forwards;
+        }
 
-    /* Hero card */
-    .hero{min-height:100vh;display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;padding:40px;}
-    .headline h1{font-size:clamp(28px,4.4vw,44px);line-height:1.02;margin-bottom:14px;background:linear-gradient(90deg,#ffffff,#cfe9ff 60%);-webkit-background-clip:text;background-clip:text;color:transparent;}
-    .subtitle{font-size:18px;margin-bottom:16px;min-height:28px}
-    .typing{border-right:2px solid rgba(230,238,248,0.9);padding-right:6px;animation:blink 1s steps(1,end) infinite;white-space:nowrap;overflow:hidden}
-    @keyframes blink{50%{border-color:transparent}}
-    .actions{display:flex;gap:12px;margin-top:20px}
-    .btn{padding:12px 18px;border-radius:10px;cursor:pointer;font-weight:600;background:linear-gradient(90deg,#7c3aed,#3b82f6);color:white;transition:.2s}
-    .btn:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(59,130,246,0.2);}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.08)}
+        @keyframes launch{
+            0%{transform:translateY(100px) scale(.5);opacity:0}
+            40%{opacity:1}
+            100%{transform:translateY(-300px) scale(1.2);opacity:0}
+        }
 
-    /* Profile card */
-    .profile{padding:20px;border-radius:12px;background:rgba(255,255,255,0.02);text-align:center}
-    .avatar{width:110px;height:110px;border-radius:16px;background:linear-gradient(135deg,#60a5fa,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:white;margin:auto 0 16px}
-    .stats{display:flex;justify-content:space-around;margin-top:10px}
-    .stat strong{display:block;font-size:16px}
-    .stat span{font-size:12px;color:rgba(230,238,248,0.65)}
+        .loader-text{
+            margin-top:20px;
+            font-size:14px;
+            opacity:.7;
+            letter-spacing: 2px;
+        }
 
-    /* Project grid */
-    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px}
-    .project-card{background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;transition:.2s}
-    .project-card:hover{transform:translateY(-4px);background:rgba(255,255,255,0.06)}
-    .project-card a{color:#3b82f6;text-decoration:none;font-weight:600}
+        /* ================= CANVAS BG ================= */
+        #tech-bg{
+            position:fixed;
+            inset:0;
+            z-index:0;
+            opacity:.35;
+        }
 
-    /* Contact */
-    .contact-links a{color:#3b82f6;text-decoration:none;margin-right:16px}
+        /* ================= MAIN ================= */
+        #app{
+            opacity:0;
+            animation:appReveal 1s ease forwards;
+            animation-delay:2.3s;
+        }
 
-    /* Responsive */
-    @media(max-width:880px){.hero{grid-template-columns:1fr}}
-  </style>
+        @keyframes appReveal{
+            to{opacity:1}
+        }
+
+        section{
+            padding:80px 10%;
+            max-width:1200px;
+            margin:auto;
+            position:relative;
+            z-index:2;
+        }
+
+        /* ================= HERO ================= */
+        .hero{
+            min-height:100vh;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1{
+            font-size: clamp(40px, 8vw, 72px);
+            background: linear-gradient(90deg, #fff, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .crazy-launch {
+            font-size: clamp(24px, 4vw, 36px);
+            margin-top: 30px;
+            color: #60a5fa;
+            text-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .subtitle{
+            margin:16px 0;
+            font-size: 22px;
+            color: #94a3b8;
+        }
+
+        .chess-rating {
+            color: #fbbf24;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* ================= SKILLS ================= */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 12px;
+            width: 100px;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .skill-item:hover {
+            background: rgba(96, 165, 250, 0.1);
+            transform: translateY(-5px);
+            border-color: #60a5fa;
+        }
+
+        .skill-item i {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #60a5fa;
+        }
+
+        .skill-item span {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* ================= PROJECTS ================= */
+        .projects-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:26px;
+            margin-top: 40px;
+        }
+
+        .project-card{
+            background: rgba(255,255,255,0.03);
+            padding:30px;
+            border-radius:20px;
+            cursor:pointer;
+            transition:.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover{
+            transform:translateY(-10px);
+            background:rgba(255,255,255,0.08);
+            border-color: #60a5fa;
+        }
+
+        /* ================= MODAL ================= */
+        #modal{
+            position:fixed;
+            inset:0;
+            background:rgba(2,6,23,0.95);
+            z-index:999;
+            display:none;
+            align-items:center;
+            justify-content:center;
+            padding: 20px;
+        }
+
+        .modal-content{
+            background:#0f172a;
+            width:95%;
+            max-width:1100px;
+            max-height: 85vh;
+            border-radius:24px;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation:zoom .3s ease;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            overflow: hidden;
+        }
+
+        .modal-left {
+            background: #020617;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-left img {
+            max-width: 100%;
+            border-radius: 12px;
+            cursor: zoom-in;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .modal-right {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .resume-list {
+            margin: 20px 0;
+            padding-left: 20px;
+            color: #cbd5e1;
+        }
+
+        .resume-list li { margin-bottom: 12px; font-size: 15px; line-height: 1.6; }
+
+        .tech-tag {
+            background: rgba(96, 165, 250, 0.1);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .close{
+            position:absolute;
+            top:25px;
+            right:25px;
+            font-size:30px;
+            cursor:pointer;
+            color: #94a3b8;
+            z-index: 100;
+        }
+
+        /* ================= NEW CONTACT SECTION ================= */
+        #contact {
+            padding-bottom: 100px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 60px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            padding: 25px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-item:hover {
+            background: rgba(96, 165, 250, 0.08);
+            border-color: #60a5fa;
+            transform: translateY(-10px);
+        }
+
+        .contact-item i {
+            font-size: 30px;
+            color: #60a5fa;
+        }
+
+        .contact-item span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        footer {
+            padding: 40px 10%;
+            text-align: center;
+            color: #475569;
+            font-size: 13px;
+        }
+
+        /* ================= FULLSCREEN ================= */
+        #fs-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 1000; display: none; align-items: center; justify-content: center; cursor: zoom-out;
+        }
+        #fs-overlay img { max-width: 90%; max-height: 90%; border-radius: 8px; }
+
+        @media(max-width:900px){
+            .modal-content { grid-template-columns: 1fr; }
+            .modal-left { display: none; }
+            section { padding: 60px 5%; }
+        }
+    </style>
 </head>
 
 <body>
-  <!-- blobs -->
-  <div class="bg-blob blob1"></div>
-  <div class="bg-blob blob2"></div>
 
-  <!-- Hero -->
-  <main class="hero" id="home">
-    <section class="headline">
-      <h1>Hi, I’m Arindam 👋</h1>
-      <div class="subtitle"><span id="typing" class="typing"></span></div>
-      <p>I’m a 4th year Computer Science student at Bennett University. I have specialization in Full Stack Development, React Native, and problem solving. Currently exploring app development and entrepreneurship 🚀.</p>
-      <div class="actions">
-        <a href="#projects"><button class="btn">Explore Projects</button></a>
-        <a href="#contact"><button class="btn ghost">Contact Me</button></a>
-      </div>
-    </section>
-
-    <aside class="profile">
-      <div class="avatar">A</div>
-      <h3>Arindam Sengupta</h3>
-      <p>Full-stack & Mobile Dev</p>
-      <div class="stats">
-        <div class="stat"><strong>12+</strong><span>Projects</span></div>
-        <div class="stat"><strong>1500+ Rating</strong><span>Chess.com</span></div>
-      </div>
-    </aside>
-  </main>
-
-  <!-- About -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I’m passionate about coding, problem-solving, and entrepreneurship  , I have specialization in Full-Stack Development. currently a hustler who is finding his way . Get connected with my linkedin for many updates </p>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <p>C++ • Object-Oriented Programming • Data Structures & Algorithms • Full Stack Development • React Native • JavaScript • HTML • CSS • API Handling • Git & GitHub • Expo • Postman •HTML • CSS • Node js • Mongo DB • Fire Base </p>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="project-card">
-        <h3>E-Commerce Website</h3>
-        <p>Clothing store with product listings, cart, and payment integration.</p>
-        <a href="https://github.com/arindam-9393/Ecommerce-website" target="_blank">View on GitHub</a>
-      </div>
-      <div class="project-card">
-        <h3>Spotify Clone</h3>
-        <p>A music streaming clone with playlists and player UI.</p>
-        <a href="https://github.com/arindam-9393/Spotify-clone" target="_blank">View on GitHub</a>
-      </div>
-      <div class="project-card">
-        <h3>Chess.com (Developing)</h3>
-        <p>Currently developing an online chess platform inspired by Chess.com.</p>
-      </div>
-      <div class="project-card">
-        <h3>Uber Clone (Developing)</h3>
-        <p>Working on a ride-hailing app clone with maps and booking system.</p>
-      </div>
+    <div id="loader">
+        <div class="rocket">🚀</div>
+        <div class="loader-text">INITIALIZING SYSTEMS...</div>
     </div>
-  </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="contact-links">
-      <p>Email: <a href="mailto:arindamsengupta93@gmail.com">arindamsengupta93@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/arindam-sengupta-5803ab260" target="_blank">linkedin.com/in/arindam</a></p>
-      <p>GitHub: <a href="https://github.com/arindam-9393" target="_blank">github.com/arindam-9393</a></p>
+    <canvas id="tech-bg"></canvas>
+
+    <div id="app">
+
+        <section class="hero">
+            <h1>Hi, I’m Arindam</h1>
+            <p class="subtitle">Full-Stack Developer • Entrepreneur</p>
+            <div class="chess-rating">♟️ 1500+ Rated on Chess.com</div>
+            <p style="margin-top: 20px; max-width: 650px; color: #94a3b8; line-height: 1.8;">
+                Computer Science student at Bennett University focused on building high-performance, 
+                real-time applications using the MERN stack and Socket.io.
+            </p>
+            <h1 class="crazy-launch">Soon Going to Launch Something Crazy..</h1>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Arsenal</h2>
+            <div class="skills-grid">
+                <div class="skill-item"><i class="devicon-mongodb-plain"></i><span>MongoDB</span></div>
+                <div class="skill-item"><i class="devicon-express-original"></i><span>Express</span></div>
+                <div class="skill-item"><i class="devicon-react-original"></i><span>React</span></div>
+                <div class="skill-item"><i class="devicon-nodejs-plain"></i><span>Node.js</span></div>
+                <div class="skill-item"><i class="devicon-socketio-original"></i><span>Socket.io</span></div>
+                <div class="skill-item"><i class="devicon-postman-plain"></i><span>Postman</span></div>
+                <div class="skill-item"><i class="devicon-git-plain"></i><span>Git/GitHub</span></div>
+                <div class="skill-item"><i class="devicon-docker-plain"></i><span>Docker</span></div>
+                <div class="skill-item"><i class="devicon-javascript-plain"></i><span>JavaScript</span></div>
+                <div class="skill-item"><i class="devicon-cplusplus-plain"></i><span>C++ (DSA)</span></div>
+                <div class="skill-item"><i class="devicon-tailwindcss-original"></i><span>Tailwind</span></div>
+                
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="projects-container">
+                <div class="project-card" onclick="openModal('Grandmaster Chess', 'Real-time multiplayer chess platform with live spectating.', 'Socket.io, Node.js, Chess.js', './Assets/chess.png')">
+                    <h3>Socket.io Chess</h3>
+                    <p>Multiplayer gameplay with 3200 ELO AI Bot.</p>
+                </div>
+                <div class="project-card" onclick="openModal('E-Commerce Elite', 'MERN stack platform with OTP verification.', 'MongoDB, Express, React, Node', './Assets/ecommerce.png')">
+                    <h3>E-Commerce Web</h3>
+                    <p>Full-stack store with secure password resets.</p>
+                </div>
+                <div class="project-card" onclick="openModal('WhatsApp Clone', 'Messaging app with Cloudinary media sharing.', 'React, Socket.io, Cloudinary', './Assets/Whatsapp chat.png')">
+                    <h3>WhatsApp Clone</h3>
+                    <p>Real-time chat with online/offline status.</p>
+                </div>
+                <div class="project-card" onclick="openModal('Spotify Clone', 'Dynamic player with API-fetched songs.', 'Web API, Javascript', './Assets/Spotify.png')">
+                    <h3>Spotify Clone</h3>
+                    <p>API-based music player with seekbar.</p>
+                </div>
+                <div class="project-card" onclick="openModal('Instagram Clone', 'Social interface with profile management.', 'MERN Stack, Firebase', './Assets/Instagram.png')">
+                    <h3>Instagram Clone</h3>
+                    <p>Social media platform with image processing.</p>
+                </div>
+                <div class="project-card" onclick="openModal('Uber Ride (WIP)', 'Ride-hailing app implementing map tracking.', 'React Native, Maps API', './Assets/image.png')">
+                    <h3>Uber Clone <span class="status-badge">In Progress</span></h3>
+                    <p>Map-integrated ride hailing mobile app.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="contact-card">
+                <h2>Let's Build the Future</h2>
+                <p style="color: #94a3b8;">Feel free to reach out for collaborations or just a game of chess.</p>
+                
+                <div class="contact-grid">
+                    <a href="mailto:arindamsengupta93@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Me</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/arindam-sengupta-5803ab260/" target="_blank" class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/arindam-9393" target="_blank" class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.instagram.com/arindam_93_/" target="_blank" class="contact-item">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Arindam Mriganka Sengupta | Built with Passion</p>
+        </footer>
+
     </div>
-  </section>
 
-  <script>
-    // Typing effect
-    const el=document.getElementById('typing');
-    const phrases=[
-      "Full-stack Developer • React Native • Node.js",
-      "Chess player • Aspiring Entrepreneur"
-    ];
-    let p=0,i=0,forward=true;
-    function typeLoop(){
-      const current=phrases[p];
-      if(forward){
-        i++;
-        el.textContent=current.slice(0,i);
-        if(i===current.length){forward=false;setTimeout(typeLoop,1500);return;}
-      } else {
-        i--;
-        el.textContent=current.slice(0,i);
-        if(i===0){forward=true;p=(p+1)%phrases.length;}
-      }
-      setTimeout(typeLoop, forward?60:30);
-    }
-    typeLoop();
-  </script>
+    <div id="modal">
+        <div class="modal-content">
+            <div class="close" onclick="closeModal()">✖</div>
+            <div class="modal-left">
+                <img id="modal-img" src="" alt="Project Screenshot" onclick="zoomImg()">
+            </div>
+            <div class="modal-right">
+                <h2 id="modal-title" style="margin-bottom: 10px;">Project Name</h2>
+                <p id="modal-desc" style="color: #94a3b8; margin-bottom: 20px;"></p>
+                <strong style="color: #60a5fa; font-size: 12px; letter-spacing: 1px;">KEY ACHIEVEMENTS</strong>
+                <ul id="modal-points" class="resume-list"></ul>
+                <div id="modal-tech"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fs-overlay" onclick="this.style.display='none'">
+        <img id="fs-img" src="">
+    </div>
+
+    <script>
+        setTimeout(()=>{
+            document.getElementById("loader").style.display="none";
+            document.body.style.overflow="auto";
+        },2600);
+
+        function openModal(title, desc, techStr, imgSrc) {
+            document.getElementById("modal-title").innerText = title;
+            document.getElementById("modal-desc").innerText = desc;
+            document.getElementById("modal-img").src = imgSrc;
+            
+            const pointsContainer = document.getElementById("modal-points");
+            pointsContainer.innerHTML = '';
+            let points = title.includes("Chess") ? ["Socket.io multiplayer moves.", "Stockfish 3200 ELO Bot.", "Live spectator rooms."] 
+                        : title.includes("E-Commerce") ? ["Secure OTP resets.", "Admin inventory tracking.", "RESTful MongoDB design."]
+                        : ["Clean architecture and high performance.", "User-centric design focus."];
+            
+            points.forEach(pt => {
+                const li = document.createElement('li');
+                li.innerText = pt;
+                pointsContainer.appendChild(li);
+            });
+
+            const techContainer = document.getElementById("modal-tech");
+            techContainer.innerHTML = techStr.split(',').map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
+
+            document.getElementById("modal").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        function zoomImg() {
+            document.getElementById('fs-img').src = document.getElementById('modal-img').src;
+            document.getElementById('fs-overlay').style.display = 'flex';
+        }
+
+        const c=document.getElementById("tech-bg"),x=c.getContext("2d");
+        function r(){c.width=innerWidth;c.height=innerHeight}
+        r();addEventListener("resize",r);
+        const p=[...Array(70)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*1.2}));
+        (function a(){
+            x.clearRect(0,0,c.width,c.height);
+            p.forEach(n=>{
+                n.x+=n.vx;n.y+=n.vy;
+                if(n.x<0||n.x>c.width)n.vx*=-1;if(n.y<0||n.y>c.height)n.vy*=-1;
+                x.beginPath();x.arc(n.x,n.y,2,0,7);x.fillStyle="#60a5fa";x.fill();
+                p.forEach(m=>{
+                    let d=Math.hypot(n.x-m.x,n.y-m.y);
+                    if(d<120){x.strokeStyle=`rgba(96,165,250,${1-d/120})`;x.lineWidth=0.5;x.beginPath();x.moveTo(n.x,n.y);x.lineTo(m.x,m.y);x.stroke();}
+                });
+            });
+            requestAnimationFrame(a);
+        })();
+    </script>
 </body>
 </html>
