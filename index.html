@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ================= RESET & BASICS ================= */
         *{
             margin:0;
             padding:0;
             box-sizing:border-box;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body{
@@ -59,7 +61,7 @@
             opacity:.35;
         }
 
-        /* ================= MAIN ================= */
+        /* ================= MAIN CONTAINER ================= */
         #app{
             opacity:0;
             animation:appReveal 1s ease forwards;
@@ -78,39 +80,29 @@
             z-index:2;
         }
 
-        /* ================= HERO ================= */
-        .hero{
-            min-height:100vh;
-            display:flex;
-            flex-direction: column;
-            justify-content: center;
+        /* ================= HERO SECTION (NEW LAYOUT) ================= */
+        .hero {
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            padding-top: 100px;
         }
 
-        h1{
-            font-size: clamp(40px, 8vw, 72px);
+        .hero-text-content {
+            flex: 1;
+            max-width: 650px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 6vw, 72px);
             background: linear-gradient(90deg, #fff, #60a5fa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
-        }
-
-        .crazy-launch {
-            font-size: clamp(24px, 4vw, 36px);
-            margin-top: 30px;
-            color: #60a5fa;
-            text-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        .subtitle{
-            margin:16px 0;
-            font-size: 22px;
-            color: #94a3b8;
+            line-height: 1.1;
+            margin-bottom: 15px;
         }
 
         .chess-rating {
@@ -119,8 +111,187 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
         }
+
+        /* Typewriter Effect Styles */
+        .typewriter {
+            font-size: 24px;
+            color: #60a5fa;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+            min-height: 30px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: #60a5fa;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .hero-bio {
+            color: #94a3b8;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* Hero Buttons */
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-3px); }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover { border-color: #60a5fa; color: #60a5fa; }
+
+        /* Profile Picture Animation */
+        .hero-img-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 380px;
+            height: 380px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            object-fit: cover;
+            border: 2px solid rgba(96, 165, 250, 0.5);
+            box-shadow: 0 0 50px rgba(96, 165, 250, 0.2);
+            animation: morph 8s ease-in-out infinite;
+            background: #1e293b;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+
+        /* ================= STARTUP SPOTLIGHT (Arivo) ================= */
+        .startup-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 0 40px rgba(96, 165, 250, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            margin-bottom: 50px;
+        }
+
+        .startup-card:hover {
+            transform: translateY(-5px);
+            border-color: #60a5fa;
+            box-shadow: 0 0 60px rgba(96, 165, 250, 0.2);
+        }
+
+        .startup-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .startup-content { flex: 1; z-index: 1; }
+
+        .startup-tag {
+            background: #2563eb;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+        }
+
+        .startup-visual {
+            flex: 1;
+            height: 300px;
+            background: #1e293b;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .startup-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .startup-card:hover .startup-visual img { transform: scale(1.05); }
+
+        .feature-list { list-style: none; margin: 20px 0; color: #cbd5e1; }
+        .feature-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 15px; }
+        .feature-list i { color: #4ade80; }
+
+        .visit-btn {
+            background: white;
+            color: #020617;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .visit-btn:hover { background: #60a5fa; color: white; }
 
         /* ================= SKILLS ================= */
         .skills-grid {
@@ -148,16 +319,8 @@
             border-color: #60a5fa;
         }
 
-        .skill-item i {
-            font-size: 32px;
-            margin-bottom: 8px;
-            color: #60a5fa;
-        }
-
-        .skill-item span {
-            font-size: 12px;
-            text-align: center;
-        }
+        .skill-item i { font-size: 32px; margin-bottom: 8px; color: #60a5fa; }
+        .skill-item span { font-size: 12px; text-align: center; }
 
         /* ================= PROJECTS ================= */
         .projects-container{
@@ -183,6 +346,17 @@
             transform:translateY(-10px);
             background:rgba(255,255,255,0.08);
             border-color: #60a5fa;
+        }
+
+        .status-badge {
+            background: #fbbf24;
+            color: #000;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 8px;
+            font-weight: bold;
         }
 
         /* ================= MODAL ================= */
@@ -221,22 +395,16 @@
 
         .modal-left img {
             max-width: 100%;
+            max-height: 100%;
             border-radius: 12px;
             cursor: zoom-in;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            object-fit: contain;
         }
 
-        .modal-right {
-            padding: 40px;
-            overflow-y: auto;
-        }
+        .modal-right { padding: 40px; overflow-y: auto; }
 
-        .resume-list {
-            margin: 20px 0;
-            padding-left: 20px;
-            color: #cbd5e1;
-        }
-
+        .resume-list { margin: 20px 0; padding-left: 20px; color: #cbd5e1; }
         .resume-list li { margin-bottom: 12px; font-size: 15px; line-height: 1.6; }
 
         .tech-tag {
@@ -260,10 +428,8 @@
             z-index: 100;
         }
 
-        /* ================= NEW CONTACT SECTION ================= */
-        #contact {
-            padding-bottom: 100px;
-        }
+        /* ================= CONTACT ================= */
+        #contact { padding-bottom: 100px; }
 
         .contact-card {
             background: rgba(255, 255, 255, 0.03);
@@ -302,35 +468,48 @@
             transform: translateY(-10px);
         }
 
-        .contact-item i {
-            font-size: 30px;
-            color: #60a5fa;
-        }
+        .contact-item i { font-size: 30px; color: #60a5fa; }
+        .contact-item span { font-size: 14px; font-weight: 500; color: #94a3b8; }
 
-        .contact-item span {
-            font-size: 14px;
-            font-weight: 500;
-            color: #94a3b8;
-        }
+        footer { padding: 40px 10%; text-align: center; color: #475569; font-size: 13px; }
 
-        footer {
-            padding: 40px 10%;
-            text-align: center;
-            color: #475569;
-            font-size: 13px;
-        }
-
-        /* ================= FULLSCREEN ================= */
+        /* ================= FULLSCREEN IMG ================= */
         #fs-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             z-index: 1000; display: none; align-items: center; justify-content: center; cursor: zoom-out;
         }
         #fs-overlay img { max-width: 90%; max-height: 90%; border-radius: 8px; }
 
+        /* ================= MOBILE FIXES ================= */
         @media(max-width:900px){
-            .modal-content { grid-template-columns: 1fr; }
-            .modal-left { display: none; }
             section { padding: 60px 5%; }
+            
+            /* Hero Mobile */
+            .hero { 
+                flex-direction: column-reverse; 
+                text-align: center; 
+                padding-top: 50px;
+            }
+            .hero-text-content { align-items: center; display: flex; flex-direction: column; }
+            .cta-group { justify-content: center; }
+            .profile-pic { width: 250px; height: 250px; margin-bottom: 20px; }
+
+            /* Startup Card Mobile */
+            .startup-card { flex-direction: column; padding: 25px; gap: 20px; }
+            .startup-visual { width: 100%; height: 200px; }
+
+            /* Modal Mobile */
+            .modal-content { display: flex; flex-direction: column; height: 80vh; }
+            .modal-left { display: flex; height: 250px; padding: 0; background: #000; }
+            .modal-left img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+            .modal-right { padding: 20px; flex: 1; }
+            .close { 
+                top: 10px; right: 15px; background: rgba(0,0,0,0.5); 
+                width: 30px; height: 30px; border-radius: 50%; 
+                display: flex; align-items: center; justify-content: center; 
+                font-size: 18px; color: white;
+            }
+            h1 { font-size: 42px; }
         }
     </style>
 </head>
@@ -347,14 +526,60 @@
     <div id="app">
 
         <section class="hero">
-            <h1>Hi, I’m Arindam</h1>
-            <p class="subtitle">Full-Stack Developer • Entrepreneur</p>
-            <div class="chess-rating">♟️ 1500+ Rated on Chess.com</div>
-            <p style="margin-top: 20px; max-width: 650px; color: #94a3b8; line-height: 1.8;">
-                Computer Science student at Bennett University focused on building high-performance, 
-                real-time applications using the MERN stack and Socket.io.
-            </p>
-            <h1 class="crazy-launch">Soon Going to Launch Something Crazy..</h1>
+            <div class="hero-text-content">
+                <div class="chess-rating">♟️ 1500+ Rated on Chess.com</div>
+                
+                <h1>Hi, I’m Arindam</h1>
+                
+                <div class="typewriter">
+                    I am a <span id="type-text"></span><span class="cursor">|</span>
+                </div>
+
+                <p class="hero-bio">
+                    Final year Computer Science student at Bennett University. 
+                    I build high-performance MERN stack applications and I'm currently 
+                    building <strong>Arivo Homes</strong> to revolutionize rental housing.
+                </p>
+
+                <div class="cta-group">
+                    <a href="./Assets/resume.pdf" download class="btn-primary">
+                        <i class="fas fa-download" style="margin-right:8px"></i>Download CV
+                    </a>
+                    <a href="#contact" class="btn-secondary">Contact Me</a>
+                </div>
+
+                <p style="font-size: 14px; color: #64748b;">
+                    🚀 Founder of <a href="https://arivohomes.com" style="color: #60a5fa; text-decoration: none;">Arivo Homes</a>
+                </p>
+            </div>
+
+            <div class="hero-img-container">
+                <img src="./Assets/profile.png" class="profile-pic" alt="Arindam Profile" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'">
+            </div>
+        </section>
+
+        <section id="startup">
+            <div class="startup-card">
+                <div class="startup-content">
+                    <span class="startup-tag">FOUNDER & CEO</span>
+                    <h2>Arivo Homes</h2>
+                    <p style="color: #94a3b8; margin: 15px 0 20px 0; line-height: 1.6;">
+                        A revolutionary "No Brokerage" rental platform designed for students and bachelors. 
+                        Targeting the IT corridor and student hubs in Nagpur to simplify housing.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Zero Brokerage Fees</li>
+                        <li><i class="fas fa-check-circle"></i> Powered by MERN Stack (High Speed)</li>
+                        <li><i class="fas fa-check-circle"></i> Direct Owner-Tenant Connection</li>
+                    </ul>
+                    <a href="https://arivohomes.com" target="_blank" class="visit-btn">
+                        Visit ArivoHomes.com <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                    </a>
+                </div>
+                <div class="startup-visual">
+                    <img src="./Assets/arivo.png" alt="Arivo Homes Interface" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-home\' style=\'font-size:80px; color:rgba(255,255,255,0.05)\'></i>'">
+                </div>
+            </div>
         </section>
 
         <section id="skills">
@@ -371,7 +596,6 @@
                 <div class="skill-item"><i class="devicon-javascript-plain"></i><span>JavaScript</span></div>
                 <div class="skill-item"><i class="devicon-cplusplus-plain"></i><span>C++ (DSA)</span></div>
                 <div class="skill-item"><i class="devicon-tailwindcss-original"></i><span>Tailwind</span></div>
-                
             </div>
         </section>
 
@@ -458,11 +682,46 @@
     </div>
 
     <script>
+        // 1. Loader Logic
         setTimeout(()=>{
             document.getElementById("loader").style.display="none";
             document.body.style.overflow="auto";
+            typeWriter(); // Start typing only after loader is gone
         },2600);
 
+        // 2. Typewriter Logic
+        const textElement = document.getElementById("type-text");
+        const roles = ["Full-Stack Developer", "Startup Founder", "Chess Enthusiast", "MERN Specialist"];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                textElement.innerText = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.innerText = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000; // Pause at end of word
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // 3. Modal Logic
         function openModal(title, desc, techStr, imgSrc) {
             document.getElementById("modal-title").innerText = title;
             document.getElementById("modal-desc").innerText = desc;
@@ -497,6 +756,7 @@
             document.getElementById('fs-overlay').style.display = 'flex';
         }
 
+        // 4. Background Animation Logic
         const c=document.getElementById("tech-bg"),x=c.getContext("2d");
         function r(){c.width=innerWidth;c.height=innerHeight}
         r();addEventListener("resize",r);
