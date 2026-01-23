@@ -105,17 +105,37 @@
             margin-bottom: 15px;
         }
 
-        .chess-rating {
+        .badges-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .rating-badge {
             color: #fbbf24;
             font-weight: bold;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 15px;
             font-size: 14px;
             background: rgba(251, 191, 36, 0.1);
             padding: 5px 12px;
             border-radius: 20px;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .dsa-badge {
+            color: #4ade80;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            background: rgba(74, 222, 128, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
         }
 
         /* Typewriter Effect Styles */
@@ -205,7 +225,7 @@
             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
 
-        /* ================= STARTUP SPOTLIGHT (Arivo) ================= */
+        /* ================= ARIVO SPOTLIGHT ================= */
         .startup-card {
             background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
             border: 1px solid rgba(96, 165, 250, 0.3);
@@ -242,7 +262,7 @@
         .startup-content { flex: 1; z-index: 1; }
 
         .startup-tag {
-            background: #2563eb;
+            background: #10b981; /* Green for Live/Deployed */
             color: white;
             padding: 5px 12px;
             border-radius: 20px;
@@ -251,7 +271,7 @@
             letter-spacing: 1px;
             display: inline-block;
             margin-bottom: 15px;
-            box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
         }
 
         .startup-visual {
@@ -491,6 +511,7 @@
                 padding-top: 50px;
             }
             .hero-text-content { align-items: center; display: flex; flex-direction: column; }
+            .badges-container { justify-content: center; }
             .cta-group { justify-content: center; }
             .profile-pic { width: 250px; height: 250px; margin-bottom: 20px; }
 
@@ -527,7 +548,10 @@
 
         <section class="hero">
             <div class="hero-text-content">
-                <div class="chess-rating">♟️ 1500+ Rated on Chess.com</div>
+                <div class="badges-container">
+                    <div class="rating-badge">♟️ 1700+ Rated on Chess.com</div>
+                    <div class="dsa-badge">💻 Strong in DSA</div>
+                </div>
                 
                 <h1>Hi, I’m Arindam</h1>
                 
@@ -537,8 +561,8 @@
 
                 <p class="hero-bio">
                     Final year Computer Science student at Bennett University. 
-                    I build high-performance MERN stack applications and I'm currently 
-                    building <strong>Arivo Homes</strong> to revolutionize rental housing.
+                    I am a <strong>Full-Stack MERN Developer</strong> with excellent problem-solving skills in 
+                    <strong>Data Structures & Algorithms</strong>. I recently deployed Arivo Homes to handle real-world traffic.
                 </p>
 
                 <div class="cta-group">
@@ -549,7 +573,7 @@
                 </div>
 
                 <p style="font-size: 14px; color: #64748b;">
-                    🚀 Founder of <a href="https://arivohomes.com" style="color: #60a5fa; text-decoration: none;">Arivo Homes</a>
+                    🚀 Live Project: <a href="https://arivohomes.com" style="color: #60a5fa; text-decoration: none;">Arivo Homes</a>
                 </p>
             </div>
 
@@ -561,19 +585,19 @@
         <section id="startup">
             <div class="startup-card">
                 <div class="startup-content">
-                    <span class="startup-tag">FOUNDER & CEO</span>
+                    <span class="startup-tag">LIVE PRODUCTION BUILD</span>
                     <h2>Arivo Homes</h2>
                     <p style="color: #94a3b8; margin: 15px 0 20px 0; line-height: 1.6;">
-                        A revolutionary "No Brokerage" rental platform designed for students and bachelors. 
-                        Targeting the IT corridor and student hubs in Nagpur to simplify housing.
+                        A fully functional "No Brokerage" rental platform deployed for the real world. 
+                        Currently active and being tested by unknown users in Nagpur with verified property listings.
                     </p>
                     <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Zero Brokerage Fees</li>
-                        <li><i class="fas fa-check-circle"></i> Powered by MERN Stack (High Speed)</li>
-                        <li><i class="fas fa-check-circle"></i> Direct Owner-Tenant Connection</li>
+                        <li><i class="fas fa-check-circle"></i> Active: <strong>20+ Owners & 15+ Tenants</strong></li>
+                        <li><i class="fas fa-check-circle"></i> High Performance MERN Backend</li>
+                        <li><i class="fas fa-check-circle"></i> Real-time Database Management</li>
                     </ul>
                     <a href="https://arivohomes.com" target="_blank" class="visit-btn">
-                        Visit ArivoHomes.com <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                        Visit Live Project <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
                     </a>
                 </div>
                 <div class="startup-visual">
@@ -589,12 +613,12 @@
                 <div class="skill-item"><i class="devicon-express-original"></i><span>Express</span></div>
                 <div class="skill-item"><i class="devicon-react-original"></i><span>React</span></div>
                 <div class="skill-item"><i class="devicon-nodejs-plain"></i><span>Node.js</span></div>
+                <div class="skill-item"><i class="devicon-cplusplus-plain"></i><span>C++ (DSA)</span></div>
                 <div class="skill-item"><i class="devicon-socketio-original"></i><span>Socket.io</span></div>
                 <div class="skill-item"><i class="devicon-postman-plain"></i><span>Postman</span></div>
                 <div class="skill-item"><i class="devicon-git-plain"></i><span>Git/GitHub</span></div>
                 <div class="skill-item"><i class="devicon-docker-plain"></i><span>Docker</span></div>
                 <div class="skill-item"><i class="devicon-javascript-plain"></i><span>JavaScript</span></div>
-                <div class="skill-item"><i class="devicon-cplusplus-plain"></i><span>C++ (DSA)</span></div>
                 <div class="skill-item"><i class="devicon-tailwindcss-original"></i><span>Tailwind</span></div>
             </div>
         </section>
@@ -691,7 +715,7 @@
 
         // 2. Typewriter Logic
         const textElement = document.getElementById("type-text");
-        const roles = ["Full-Stack Developer", "Startup Founder", "Chess Enthusiast", "MERN Specialist"];
+        const roles = ["Full-Stack Developer", "Backend Engineer", "DSA Specialist", "Chess Enthusiast (1700+)"];
         let roleIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
